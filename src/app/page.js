@@ -1,95 +1,83 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+/* eslint-disable @next/next/no-img-element */
+"use client"
+import { doLogin } from "@/services/Web3Service";
+import Head from "next/head";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Home() {
+  const [message, setMessage] = useState('');
+
+  const { push } = useRouter();
+  
+  const btnLoginOnclick = () => {
+    doLogin()
+      .then(account => push('/vote'))
+      .catch(err => {
+        console.log(err);
+        setMessage(err.message);
+      })    
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+    <Head>
+      <title>Webbb3 | Login</title>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </Head>
+    <div className="container col-xxl-8 px-4 py-5">
+      <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div className="col-10 col-sm-8 col-lg-6">
+          <img alt="bbb  img" src="https://s2-g1.glbimg.com/oQkh9RvVno32h68-r06gXaPoskI=/0x0:984x554/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2023/q/Q/pAo4MYTy2WU6K4pqNpTw/bbb.jpeg" className="d-block mx-lg-auto img-fluid" width="700" height="500" />
+        </div>
+        <div className="col-lg-6">
+          <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">Webbb3</h1>
+          <p className="lead">Votação on-chain do BBB.</p>
+          <p className="lead mb-3">Autentique-se com sua carteira e deixe o seu voto para o próximo paredão.</p>
+          <div className="d-grid gap-2 d-md-flex justify-content-md-start">
+            <button type="button" onClick={btnLoginOnclick} className="btn btn-primary btn-lg px-4 me-md-2">
+              <img alt="metamask logo" src="/metamask.svg" width="64" className="me-3" />
+              Conectar com a MetaMask
+            </button>
+          </div>
+          <p className="message">{message}</p>
         </div>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p className="col-md-4 mb-0 text-body-secondary">&copy; 2024 Webbb3, Inc</p>
+        <ul className="nav col-md-4 justify-content-end">
+          <li className="nav-item"><a href="/" className="nav-link px-2 text-body-secondary">Home</a></li>
+          <li className="nav-item"><a href="/about" className="nav-link px-2 text-body-secondary">About</a></li>
+        </ul>
+      </footer>
+    </div>
+  </>
+    // <>
+    //   <head>
+    //     <title> Webbb3 | Login</title>
+    //     <meta charSet="utf-8" />
+    //     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    //   </head>
+    //   <div className="container col-XX-8 px-4 py-5">
+    //       <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
+    //         <div className="col-10 col-sm-8 col-lg-6">
+    //           <img 
+    //             alt="bbb-logo" 
+    //             src="https://imagens.ne10.uol.com.br/veiculos/_midias/jpg/2023/01/17/806x444/1_1_bbb_23_27275578-22310199.jpg" 
+    //             className="d-block mx-lg-auto img-fluid" 
+    //             width="700"
+    //             height="800"
+    //           />
+    //         </div>
+    //         <div className="col-lg-6">
+    //           <h1 className="display-5 fw-bold text-body-emphasis lh-1 mb-3">Webbb3</h1>
+    //           <p className="lead">Votação on-chain do BBB.</p>
+    //           <p className="lead mb-3">Autentique-se com sua carteira e deixe seu voto para o próximo paredão.</p>
+    //           <div className="d-grid gap-2 d-md-flex justify-content-md-start"></div>
+    //         </div>
+    //       </div>
+    //   </div>
+    // </>
   );
 }
